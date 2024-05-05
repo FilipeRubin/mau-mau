@@ -8,8 +8,10 @@ int main()
 
 	if (windowCreatedSuccessfully)
 	{
+		gameWindow->GetRenderer()->SetBackgroundColor(0.5f, 0.3f, 0.1f, 1.0f);
 		while (gameWindow->ShouldContinueRunning())
 		{
+			gameWindow->GetRenderer()->ClearScreen();
 			gameWindow->Process();
 		}
 		gameWindow->Destroy();
