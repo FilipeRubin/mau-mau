@@ -52,7 +52,7 @@ bool OpenGLGameWindow::TryCreateWindow(int width, int height, const std::string&
 
 	m_renderer = new OpenGLRenderer();
 
-	const bool rendererInitializedSuccessfully = dynamic_cast<IRendererInitializer*>(m_renderer)->TryInitialize();
+	const bool rendererInitializedSuccessfully = dynamic_cast<IRendererCore*>(m_renderer)->TryInitialize();
 
 	if (not rendererInitializedSuccessfully)
 	{

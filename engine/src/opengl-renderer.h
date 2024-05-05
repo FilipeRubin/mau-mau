@@ -1,8 +1,8 @@
 #pragma once
 #include "engine/i-renderer.h"
-#include "i-renderer-initializer.h"
+#include "i-renderer-core.h"
 
-class OpenGLRenderer : public IRenderer, public IRendererInitializer
+class OpenGLRenderer : public IRenderer, public IRendererCore
 {
 public:
 	void ClearScreen() const override;
