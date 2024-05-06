@@ -4,7 +4,6 @@
 class OpenGLGameWindow : public IGameWindow
 {
 public:
-	static OpenGLGameWindow* GetCurrentInstance();
 	OpenGLGameWindow();
 	~OpenGLGameWindow();
 	void Destroy() override;
@@ -14,7 +13,6 @@ public:
 	bool ShouldContinueRunning() const override;
 	bool TryCreateWindow(int width, int height, const std::string& title) override;
 private:
-	static OpenGLGameWindow* s_currentInstance;
 	IInput* m_input;
 	IRenderer* m_renderer;
 	struct GLFWwindow* m_window;

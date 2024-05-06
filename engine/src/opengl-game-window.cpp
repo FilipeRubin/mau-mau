@@ -4,13 +4,6 @@
 #include "opengl-renderer.h"
 #include <GLFW/glfw3.h>
 
-OpenGLGameWindow* OpenGLGameWindow::s_currentInstance = nullptr;
-
-OpenGLGameWindow* OpenGLGameWindow::GetCurrentInstance()
-{
-	return s_currentInstance;
-}
-
 OpenGLGameWindow::OpenGLGameWindow() :
 	m_input(nullptr),
 	m_renderer(nullptr),
@@ -25,8 +18,6 @@ OpenGLGameWindow::~OpenGLGameWindow()
 
 void OpenGLGameWindow::Destroy()
 {
-	if (s_currentInstance == this)
-		s_currentInstance = nullptr;
 	delete m_input;
 	delete m_renderer;
 	m_renderer = nullptr;
@@ -79,8 +70,6 @@ bool OpenGLGameWindow::TryCreateWindow(int width, int height, const std::string&
 		Destroy();
 		return false;
 	}
-
-	s_currentInstance = this;
 
 	return true;
 }
