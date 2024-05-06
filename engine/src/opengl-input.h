@@ -2,10 +2,10 @@
 #include "engine/i-input.h"
 #include "i-input-core.h"
 
-class InputImplementation : public IInput, public IInputCore
+class OpenGLInput : public IInput, public IInputCore
 {
 public:
-	InputImplementation();
+	OpenGLInput();
 	bool IsKeyboardKeyJustPressed(KeyboardKey key) const override;
 	bool IsKeyboardKeyJustReleased(KeyboardKey key) const override;
 	bool IsKeyboardKeyPressed(KeyboardKey key) const override;

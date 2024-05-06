@@ -1,6 +1,6 @@
 #include "engine/opengl-game-window.h"
 #include "i-input-core.h"
-#include "input-implementation.h"
+#include "opengl-input.h"
 #include "opengl-renderer.h"
 #include <GLFW/glfw3.h>
 
@@ -79,7 +79,7 @@ bool OpenGLGameWindow::TryCreateWindow(int width, int height, const std::string&
 	}
 	glfwMakeContextCurrent(m_window);
 
-	m_input = new InputImplementation();
+	m_input = new OpenGLInput();
 
 	glfwSetKeyCallback(m_window, glfw_key_callback);
 
