@@ -6,18 +6,6 @@
 
 OpenGLGameWindow* OpenGLGameWindow::s_currentInstance = nullptr;
 
-static void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	IInputCore& input = *dynamic_cast<IInputCore*>(OpenGLGameWindow::GetCurrentInstance()->GetInput());
-	input.UpdateKeyboardKeyState(static_cast<KeyboardKey>(key), action == GLFW_PRESS);
-}
-
-static void glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
-{
-	IInputCore& input = *dynamic_cast<IInputCore*>(OpenGLGameWindow::GetCurrentInstance()->GetInput());
-	input.UpdateMouseButtonState(static_cast<MouseButton>(button), action == GLFW_PRESS);
-}
-
 OpenGLGameWindow* OpenGLGameWindow::GetCurrentInstance()
 {
 	return s_currentInstance;
@@ -39,6 +27,7 @@ void OpenGLGameWindow::Destroy()
 {
 	if (s_currentInstance == this)
 		s_currentInstance = nullptr;
+	delete m_input;
 	delete m_renderer;
 	m_renderer = nullptr;
 	glfwDestroyWindow(m_window);
@@ -58,6 +47,7 @@ IRenderer* OpenGLGameWindow::GetRenderer() const
 
 void OpenGLGameWindow::Process()
 {
+	dynamic_cast<IInputCore*>(m_input)->Process();
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 }
@@ -79,10 +69,7 @@ bool OpenGLGameWindow::TryCreateWindow(int width, int height, const std::string&
 	}
 	glfwMakeContextCurrent(m_window);
 
-	m_input = new OpenGLInput();
-
-	glfwSetKeyCallback(m_window, glfw_key_callback);
-
+	m_input = new OpenGLInput(m_window);
 	m_renderer = new OpenGLRenderer();
 
 	const bool rendererInitializedSuccessfully = dynamic_cast<IRendererCore*>(m_renderer)->TryInitialize();

@@ -2,12 +2,38 @@
 #include <GLFW/glfw3.h>
 #include <string>
 
-OpenGLInput::OpenGLInput()
+std::list<OpenGLInput*> OpenGLInput::s_instances = std::list<OpenGLInput*>();
+
+static void glfw_key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
+    for (IInputCore* input : OpenGLInput::s_instances)
+    {
+        input->UpdateKeyboardKeyState(static_cast<KeyboardKey>(key), action == GLFW_PRESS);
+    }
+}
+
+static void glfw_mouse_button_callback(GLFWwindow* window, int button, int action, int mods)
+{
+    for (IInputCore* input : OpenGLInput::s_instances)
+    {
+        input->UpdateMouseButtonState(static_cast<MouseButton>(button), action == GLFW_PRESS);
+    }
+}
+
+OpenGLInput::OpenGLInput(struct GLFWwindow* window)
 {
     std::memset(m_keyboardKeysPressed, false, sizeof(m_keyboardKeysPressed));
     std::memset(m_lastKeyboardKeysPressed, false, sizeof(m_lastKeyboardKeysPressed));
     std::memset(m_mouseButtonPressed, false, sizeof(m_mouseButtonPressed));
     std::memset(m_lastMouseButtonPressed, false, sizeof(m_lastMouseButtonPressed));
+    s_instances.emplace_back(this);
+    glfwSetKeyCallback(window, glfw_key_callback);
+    glfwSetMouseButtonCallback(window, glfw_mouse_button_callback);
+}
+
+OpenGLInput::~OpenGLInput()
+{
+    s_instances.remove(this);
 }
 
 bool OpenGLInput::IsKeyboardKeyJustPressed(KeyboardKey key) const
@@ -32,7 +58,7 @@ bool OpenGLInput::IsMouseButtonJustPressed(MouseButton button) const
 
 bool OpenGLInput::IsMouseButtonJustReleased(MouseButton button) const
 {
-    return not m_mouseButtonPressed[static_cast<int>(button)] and m_lastMouseButtonPressed[static_cast<int>(button)];;
+    return not m_mouseButtonPressed[static_cast<int>(button)] and m_lastMouseButtonPressed[static_cast<int>(button)];
 }
 
 bool OpenGLInput::IsMouseButtonPressed(MouseButton button) const
@@ -46,10 +72,7 @@ void OpenGLInput::Process()
     const size_t mouseButtonsLength = sizeof(m_mouseButtonPressed) / sizeof(m_lastMouseButtonPressed[0]);
 
     std::copy(m_keyboardKeysPressed, m_keyboardKeysPressed + keyboardKeysLength, m_lastKeyboardKeysPressed);
-    std::memset(m_keyboardKeysPressed, false, keyboardKeysLength);
-
     std::copy(m_mouseButtonPressed, m_mouseButtonPressed + mouseButtonsLength, m_lastMouseButtonPressed);
-    std::memset(m_mouseButtonPressed, false, mouseButtonsLength);
 }
 
 void OpenGLInput::UpdateKeyboardKeyState(KeyboardKey key, bool isPressed)
