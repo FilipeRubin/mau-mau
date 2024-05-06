@@ -1,5 +1,5 @@
 #pragma once
-#include "engine/i-renderer.h"
+#include "engine/graphics/i-renderer.h"
 #include "i-renderer-core.h"
 
 class OpenGLRenderer : public IRenderer, public IRendererCore

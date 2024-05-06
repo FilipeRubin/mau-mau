@@ -1,5 +1,5 @@
 #include "opengl-renderer.h"
-#include "glad/glad.h"
+#include <glad/glad.h>
 
 void OpenGLRenderer::ClearScreen() const
 {

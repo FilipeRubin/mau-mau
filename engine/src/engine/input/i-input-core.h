@@ -1,6 +1,6 @@
 #pragma once
-#include "engine/keyboard-key.h"
-#include "engine/mouse-button.h"
+#include "engine/input/keyboard-key.h"
+#include "engine/input/mouse-button.h"
 
 class IInputCore
 {
