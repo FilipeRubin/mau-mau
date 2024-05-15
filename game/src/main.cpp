@@ -1,4 +1,4 @@
-#include <engine/opengl-game-window.h>
+#include <engine/graphics/opengl-game-window.h>
 
 int main()
 {
