@@ -6,6 +6,11 @@ void OpenGLRenderer::ClearScreen() const
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
+IMeshRenderer& OpenGLRenderer::GetMeshRenderer()
+{
+	return m_meshRenderer;
+}
+
 bool OpenGLRenderer::TryInitialize()
 {
 	return gladLoadGL() != 0;
