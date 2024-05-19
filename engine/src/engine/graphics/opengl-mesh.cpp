@@ -1,33 +1,43 @@
 #include "opengl-mesh.h"
 #include <glad/glad.h>
 
-OpenGLMesh::OpenGLMesh() :
-	m_vbo(0U),
-	m_vao(0U),
-	m_ebo(0U),
-	m_indexCount(0U)
-{
-	GenerateBuffers();
-}
-
-OpenGLMesh::~OpenGLMesh()
-{
-	DeleteBuffers();
-}
-
 void OpenGLMesh::Draw() const
 {
-	DrawIndexedGeometry();
+	m_vao.Bind();
+	glDrawElements(GL_TRIANGLES, m_ebo.GetSize(), GL_UNSIGNED_INT, (const void*)0U);
 }
 
 void OpenGLMesh::LoadData(const MeshData& data)
 {
-	FillVertexBufferData(data.vertices);
-	FillIndexBufferData(data.indices);
-	CreateVertexAttributes();
+	m_vbo.SetData(data.vertices.data(), data.vertices.size() * sizeof(Vertex));
+	m_ebo.SetData(data.indices.data(), data.indices.size() * sizeof(unsigned int));
+	SetVertexAttributes();
 }
 
-void OpenGLMesh::CreateVertexAttributes()
+void OpenGLMesh::SetVertexAttributes() const
+{
+	OpenGLVertexAttribute attributes[3];
+	attributes[0].index = 0U;
+	attributes[0].elementCount = 3;
+	attributes[0].stride = sizeof(Vertex);
+	attributes[0].offset = 0U;
+
+	attributes[1].index = 1U;
+	attributes[1].elementCount = 2;
+	attributes[1].stride = sizeof(Vertex);
+	attributes[1].offset = 12U;
+
+	attributes[2].index = 2U;
+	attributes[2].elementCount = 3;
+	attributes[2].stride = sizeof(Vertex);
+	attributes[2].offset = 20U;
+
+	m_vao.SetVertexAttribute(attributes[0]);
+	m_vao.SetVertexAttribute(attributes[1]);
+	m_vao.SetVertexAttribute(attributes[2]);
+}
+
+/*void OpenGLMesh::CreateVertexAttributes()
 {
 	glBindVertexArray(m_vao);
 	glVertexAttribPointer(0U, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (const void*)0U);
@@ -73,3 +83,4 @@ void OpenGLMesh::GenerateBuffers()
 	glGenVertexArrays(1, &m_vao);
 	glGenBuffers(1, &m_ebo);
 }
+*/
