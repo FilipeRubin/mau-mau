@@ -1,6 +1,5 @@
 #include "opengl-shader.h"
 #include <glad/glad.h>
-#include <cassert>
 #include <iostream>
 
 OpenGLShader::OpenGLShader(OpenGLShaderType type) :
