@@ -21,3 +21,8 @@ void OpenGLProgram::Link() const
 {
 	glLinkProgram(m_program);
 }
+
+void OpenGLProgram::Use() const
+{
+	glUseProgram(m_program);
+}
