@@ -18,6 +18,7 @@ OpenGLGameWindow::~OpenGLGameWindow()
 void OpenGLGameWindow::Destroy()
 {
 	delete m_input;
+	m_input = nullptr;
 	delete m_renderer;
 	m_renderer = nullptr;
 	glfwDestroyWindow(m_window);
