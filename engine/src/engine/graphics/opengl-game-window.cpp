@@ -26,14 +26,14 @@ void OpenGLGameWindow::Destroy()
 	glfwTerminate();
 }
 
-IInput* OpenGLGameWindow::GetInput() const
+IInput& OpenGLGameWindow::GetInput() const
 {
-	return m_input;
+	return *m_input;
 }
 
-IRenderer* OpenGLGameWindow::GetRenderer() const
+IRenderer& OpenGLGameWindow::GetRenderer() const
 {
-	return m_renderer;
+	return *m_renderer;
 }
 
 void OpenGLGameWindow::Process()
