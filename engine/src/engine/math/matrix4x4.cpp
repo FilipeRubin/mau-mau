@@ -23,6 +23,11 @@ Vector4& Matrix4x4::operator[](unsigned long long index)
     return value[index];
 }
 
+const Vector4& Matrix4x4::operator[](unsigned long long index) const
+{
+    return value[index];
+}
+
 Vector4 Matrix4x4::operator+(const Vector4& other) const
 {
     const Vector4& o = other;
