@@ -9,4 +9,5 @@ struct Matrix4x4
 	Vector4& operator[](unsigned long long index);
 	const Vector4& operator[](unsigned long long index) const;
 	Vector4 operator+(const Vector4& other) const;
+	Matrix4x4 operator*(const Matrix4x4& other) const;
 };
