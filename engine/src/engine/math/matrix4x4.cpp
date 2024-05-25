@@ -1,6 +1,17 @@
 #include "engine/math/matrix4x4.h"
 #include <cmath>
 
+Matrix4x4 Matrix4x4::Identity()
+{
+    return Matrix4x4
+    (
+        Vector4(1.0f, 0.0f, 0.0f, 0.0f),
+        Vector4(0.0f, 1.0f, 0.0f, 0.0f),
+        Vector4(0.0f, 0.0f, 1.0f, 0.0f),
+        Vector4(0.0f, 0.0f, 0.0f, 1.0f)
+    );
+}
+
 Matrix4x4 Matrix4x4::Perspective(float hFOV, float aspectRatio, float zNear, float zFar)
 {
     const float v11 = aspectRatio * (1.0f / tanf(hFOV / 2.0f));
