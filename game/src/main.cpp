@@ -32,7 +32,6 @@ int main()
 			{
 				gameWindow->GetRenderer().SetBackgroundColor(0.5f, 0.5f, 0.6f, 1.0f);
 			}
-			gameWindow->GetRenderer().ClearScreen();
 			gameWindow->Process();
 		}
 		gameWindow->Destroy();

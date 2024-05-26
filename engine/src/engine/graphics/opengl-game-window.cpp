@@ -39,6 +39,7 @@ IRenderer& OpenGLGameWindow::GetRenderer() const
 void OpenGLGameWindow::Process()
 {
 	dynamic_cast<IInputCore*>(m_input)->Process();
+	dynamic_cast<IRendererCore*>(m_renderer)->ClearScreen();
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 }
