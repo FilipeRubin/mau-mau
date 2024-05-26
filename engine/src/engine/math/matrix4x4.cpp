@@ -89,6 +89,15 @@ Matrix4x4 Matrix4x4::Translation(const Vector3& translation)
     );
 }
 
+Matrix4x4::Matrix4x4()
+{
+}
+
+Matrix4x4::Matrix4x4(const Vector4& row1, const Vector4& row2, const Vector4& row3, const Vector4& row4) :
+    value{ row1, row2, row3, row4 }
+{
+}
+
 Vector4& Matrix4x4::operator[](unsigned long long index)
 {
     return value[index];
