@@ -11,6 +11,11 @@ IMeshRenderer& OpenGLRenderer::GetMeshRenderer()
 	return m_meshRenderer;
 }
 
+void OpenGLRenderer::RenderFrame()
+{
+	m_meshRenderer.DrawAllMeshes();
+}
+
 bool OpenGLRenderer::TryInitialize()
 {
 	return gladLoadGL() != 0;
