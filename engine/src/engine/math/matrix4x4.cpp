@@ -29,6 +29,66 @@ Matrix4x4 Matrix4x4::Perspective(float hFOV, float aspectRatio, float zNear, flo
     };
 }
 
+Matrix4x4 Matrix4x4::Rotation(const Vector3& rotationAngles)
+{
+    return RotationX(rotationAngles.x) * RotationY(rotationAngles.y) * RotationZ(rotationAngles.z);
+}
+
+Matrix4x4 Matrix4x4::RotationX(float angle)
+{
+    return Matrix4x4
+    (
+        Vector4(1.0f,        0.0f,         0.0f, 0.0f),
+        Vector4(0.0f, cosf(angle), -sinf(angle), 0.0f),
+        Vector4(0.0f, sinf(angle),  cosf(angle), 0.0f),
+        Vector4(0.0f,        0.0f,         0.0f, 1.0f)
+    );
+}
+
+Matrix4x4 Matrix4x4::RotationY(float angle)
+{
+    return Matrix4x4
+    (
+        Vector4( cosf(angle), 0.0f, sinf(angle), 0.0f),
+        Vector4(        0.0f, 1.0f,        0.0f, 0.0f),
+        Vector4(-sinf(angle), 0.0f, cosf(angle), 0.0f),
+        Vector4(        0.0f, 0.0f,        0.0f, 1.0f)
+    );
+}
+
+Matrix4x4 Matrix4x4::RotationZ(float angle)
+{
+    return Matrix4x4
+    (
+        Vector4(cosf(angle), -sinf(angle), 0.0f, 0.0f),
+        Vector4(sinf(angle),  cosf(angle), 0.0f, 0.0f),
+        Vector4(       0.0f,         0.0f, 1.0f, 0.0f),
+        Vector4(       0.0f,         0.0f, 0.0f, 1.0f)
+    );
+}
+
+Matrix4x4 Matrix4x4::Scale(const Vector3& scale)
+{
+    return Matrix4x4
+    (
+        Vector4(scale.x, 0.0f   , 0.0f   , 0.0f),
+        Vector4(0.0f   , scale.y, 0.0f   , 0.0f),
+        Vector4(0.0f   , 0.0f   , scale.z, 0.0f),
+        Vector4(0.0f   , 0.0f   , 0.0f   , 1.0f)
+    );
+}
+
+Matrix4x4 Matrix4x4::Translation(const Vector3& translation)
+{
+    return Matrix4x4
+    (
+        Vector4(1.0f, 0.0f, 0.0f, translation.x),
+        Vector4(0.0f, 1.0f, 0.0f, translation.y),
+        Vector4(0.0f, 0.0f, 1.0f, translation.z),
+        Vector4(0.0f, 0.0f, 0.0f,          1.0f)
+    );
+}
+
 Vector4& Matrix4x4::operator[](unsigned long long index)
 {
     return value[index];
