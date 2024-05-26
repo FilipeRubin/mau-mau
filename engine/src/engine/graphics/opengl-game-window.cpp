@@ -40,6 +40,7 @@ void OpenGLGameWindow::Process()
 {
 	dynamic_cast<IInputCore*>(m_input)->Process();
 	dynamic_cast<IRendererCore*>(m_renderer)->ClearScreen();
+	dynamic_cast<IRendererCore*>(m_renderer)->RenderFrame();
 	glfwSwapBuffers(m_window);
 	glfwPollEvents();
 }
