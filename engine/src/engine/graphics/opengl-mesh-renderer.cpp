@@ -55,6 +55,7 @@ std::shared_ptr<IMesh> OpenGLMeshRenderer::CreateMesh()
 void OpenGLMeshRenderer::DrawAllMeshes() const
 {
     m_program.Use();
+    m_program.UniformMatrix4x4("u_projection", Matrix4x4::Perspective(3.14f, 4.0f / 3.0f, 0.1f, 50.0f));
 
     for (const std::shared_ptr<OpenGLMesh>& mesh : m_meshes)
     {
