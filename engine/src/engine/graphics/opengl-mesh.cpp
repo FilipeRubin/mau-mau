@@ -9,8 +9,8 @@ void OpenGLMesh::Draw() const
 
 void OpenGLMesh::LoadData(const MeshData& data)
 {
-	m_vbo.SetData(data.vertices.data(), data.vertices.size() * sizeof(Vertex));
-	m_ebo.SetData(data.indices.data(), data.indices.size() * sizeof(unsigned int));
+	m_vbo.SetData(data.vertices.data(), data.vertices.size());
+	m_ebo.SetData(data.indices.data(), data.indices.size());
 	SetVertexAttributes();
 }
 
