@@ -2,9 +2,10 @@
 #include "engine/math/transform3d.h"
 #include "mesh-data.h"
 
-class IMesh
+class MeshBase
 {
 public:
-	virtual ~IMesh() = default;
+	Transform3D transform;
+	virtual ~MeshBase() = default;
 	virtual void LoadData(const MeshData& data) = 0;
 };

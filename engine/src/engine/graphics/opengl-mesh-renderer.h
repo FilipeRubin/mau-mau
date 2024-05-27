@@ -8,7 +8,7 @@ class OpenGLMeshRenderer : public IMeshRenderer, public IMeshRendererCore
 {
 public:
 	OpenGLMeshRenderer();
-	std::shared_ptr<IMesh> CreateMesh() override;
+	std::shared_ptr<MeshBase> CreateMesh() override;
 	void DrawAllMeshes() const override;
 private:
 	std::vector<std::shared_ptr<OpenGLMesh>> m_meshes;

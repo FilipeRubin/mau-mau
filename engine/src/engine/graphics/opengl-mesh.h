@@ -1,11 +1,11 @@
 #pragma once
-#include "engine/graphics/i-mesh.h"
+#include "engine/graphics/mesh-base.h"
 #include "i-mesh-core.h"
 #include "opengl-ebo.h"
 #include "opengl-vao.h"
 #include "opengl-vbo.h"
 
-class OpenGLMesh : public IMesh, public IMeshCore
+class OpenGLMesh : public MeshBase, public IMeshCore
 {
 public:
 	void Draw() const override;

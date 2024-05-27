@@ -1,10 +1,10 @@
 #pragma once
-#include "i-mesh.h"
+#include "mesh-base.h"
 #include <memory>
 
 class IMeshRenderer
 {
 public:
 	virtual ~IMeshRenderer() = default;
-	virtual std::shared_ptr<IMesh> CreateMesh() = 0;
+	virtual std::shared_ptr<MeshBase> CreateMesh() = 0;
 };

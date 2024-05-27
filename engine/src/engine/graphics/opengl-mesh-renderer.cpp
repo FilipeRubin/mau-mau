@@ -47,7 +47,7 @@ void main()
     m_program.Link();
 }
 
-std::shared_ptr<IMesh> OpenGLMeshRenderer::CreateMesh()
+std::shared_ptr<MeshBase> OpenGLMeshRenderer::CreateMesh()
 {
     return m_meshes.emplace_back(std::make_shared<OpenGLMesh>());
 }
