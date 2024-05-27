@@ -3,7 +3,7 @@
 
 OpenGLEBO::OpenGLEBO() :
 	m_ebo(0U),
-	m_size(0U)
+	m_length(0U)
 {
 	glGenBuffers(1, &m_ebo);
 }
@@ -18,15 +18,15 @@ void OpenGLEBO::Bind() const
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
 }
 
-size_t OpenGLEBO::GetSize() const
+size_t OpenGLEBO::GetLength() const
 {
-	return m_size;
+	return m_length;
 }
 
-void OpenGLEBO::SetData(const unsigned int* data, size_t size)
+void OpenGLEBO::SetData(const unsigned int* data, size_t length)
 {
-	m_size = size;
-	const size_t length = sizeof(unsigned int) * size;
+	m_length = length;
+	const size_t size = length * sizeof(unsigned int);
 	Bind();
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 }

@@ -4,7 +4,7 @@
 void OpenGLMesh::Draw() const
 {
 	m_vao.Bind();
-	glDrawElements(GL_TRIANGLES, m_ebo.GetSize(), GL_UNSIGNED_INT, (const void*)0U);
+	glDrawElements(GL_TRIANGLES, m_ebo.GetLength(), GL_UNSIGNED_INT, (const void*)0U);
 }
 
 void OpenGLMesh::LoadData(const MeshData& data)

@@ -6,9 +6,9 @@ public:
 	OpenGLEBO();
 	~OpenGLEBO();
 	void Bind() const;
-	size_t GetSize() const;
-	void SetData(const unsigned int* data, size_t size);
+	size_t GetLength() const;
+	void SetData(const unsigned int* data, size_t length);
 private:
 	unsigned int m_ebo;
-	size_t m_size;
+	size_t m_length;
 };
