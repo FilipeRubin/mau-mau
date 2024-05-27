@@ -59,6 +59,14 @@ void OpenGLMeshRenderer::DrawAllMeshes() const
 
     for (const std::shared_ptr<OpenGLMesh>& mesh : m_meshes)
     {
+        const Matrix4x4 scaleMatrix = Matrix4x4::Scale(mesh->transform.scale);
+        const Matrix4x4 rotationMatrix = Matrix4x4::Rotation(mesh->transform.rotation);
+        const Matrix4x4 translationMatrix = Matrix4x4::Translation(mesh->transform.position);
+
+        const Matrix4x4 modelMatrix = translationMatrix * scaleMatrix * rotationMatrix;
+
+        m_program.UniformMatrix4x4("u_model", modelMatrix);
+
         mesh->Draw();
     }
 }
