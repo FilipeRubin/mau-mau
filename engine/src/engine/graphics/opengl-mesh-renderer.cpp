@@ -1,5 +1,6 @@
 #include "opengl-mesh-renderer.h"
 #include <cassert>
+#include <numbers>
 
 OpenGLMeshRenderer::OpenGLMeshRenderer()
 {
@@ -61,7 +62,9 @@ std::shared_ptr<MeshBase> OpenGLMeshRenderer::CreateMesh()
 void OpenGLMeshRenderer::DrawAllMeshes() const
 {
     m_program.Use();
-    m_program.UniformMatrix4x4("u_projection", Matrix4x4::Perspective(3.14f, 4.0f / 3.0f, 0.1f, 50.0f));
+
+    const Matrix4x4 perspective = Matrix4x4::Perspective(std::numbers::pi / 2.0f, 3.0f / 4.0f, 0.1f, 50.0f);
+    m_program.UniformMatrix4x4("u_projection", perspective);
 
     for (const std::shared_ptr<OpenGLMesh>& mesh : m_meshes)
     {
@@ -70,7 +73,6 @@ void OpenGLMeshRenderer::DrawAllMeshes() const
         const Matrix4x4 translationMatrix = Matrix4x4::Translation(mesh->transform.position);
 
         const Matrix4x4 modelMatrix = translationMatrix * scaleMatrix * rotationMatrix;
-
         m_program.UniformMatrix4x4("u_model", modelMatrix);
 
         mesh->Draw();
