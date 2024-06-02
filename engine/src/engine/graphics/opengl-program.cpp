@@ -25,7 +25,7 @@ void OpenGLProgram::Link() const
 void OpenGLProgram::UniformMatrix4x4(const std::string& name, const Matrix4x4& value) const
 {
 	int location = glGetUniformLocation(m_program, name.c_str());
-	glUniformMatrix4fv(location, 1, GL_FALSE, reinterpret_cast<const float*>(&value));
+	glUniformMatrix4fv(location, 1, GL_TRUE, reinterpret_cast<const float*>(&value));
 }
 
 void OpenGLProgram::Use() const
