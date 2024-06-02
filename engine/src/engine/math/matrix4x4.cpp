@@ -16,9 +16,9 @@ Matrix4x4 Matrix4x4::Perspective(float hFOV, float aspectRatio, float zNear, flo
 {
     const float v11 = aspectRatio * (1.0f / tanf(hFOV / 2.0f));
     const float v22 = (1.0f / tanf(hFOV / 2.0f));
-    const float v33 = zFar / (zFar - zNear);
-    const float v34 = (-zFar * zNear) / (zFar - zNear);
-    const float v43 = 1.0f;
+    const float v33 = (zFar + zNear) / (zNear - zFar);
+    const float v34 = (2.0f * zFar * zNear) / (zNear - zFar);
+    const float v43 = -1.0f;
 
     return Matrix4x4
     {
