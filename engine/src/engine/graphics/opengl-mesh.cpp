@@ -9,6 +9,7 @@ void OpenGLMesh::Draw() const
 
 void OpenGLMesh::LoadData(const MeshData& data)
 {
+	m_vao.Bind();
 	m_vbo.SetData(data.vertices.data(), data.vertices.size());
 	m_ebo.SetData(data.indices.data(), data.indices.size());
 	SetVertexAttributes();
