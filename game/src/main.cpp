@@ -9,29 +9,31 @@ int main()
 	if (windowCreatedSuccessfully)
 	{
 		gameWindow->GetRenderer().SetBackgroundColor(0.5f, 0.3f, 0.1f, 1.0f);
+
+		MeshData meshData;
+
+		meshData.vertices = 
+		{
+			{Vector3(-1.0f, -1.0f, 0.0f), Vector2(), Vector3(0.5f, 1.0f, 0.0f)},
+			{Vector3( 1.0f, -1.0f, 0.0f), Vector2(), Vector3(0.0f, 0.5f, 1.0f)},
+			{Vector3( 1.0f,  1.0f, 0.0f), Vector2(), Vector3(1.0f, 0.0f, 0.5f)},
+			{Vector3(-1.0f,  1.0f, 0.0f), Vector2(), Vector3(0.0f, 1.0f, 0.5f)}
+		};
+
+		meshData.indices = { 0U, 1U, 2U, 0U, 2U, 3U };
+
+		std::shared_ptr<MeshBase> mesh = gameWindow->GetRenderer().GetMeshRenderer().CreateMesh();
+		mesh->LoadData(meshData);
+
 		while (gameWindow->ShouldContinueRunning())
 		{
+			static float value = 0.0f;
 			IInput& input = gameWindow->GetInput();
-			if (input.IsKeyboardKeyJustPressed(KeyboardKey::A))
-			{
-				gameWindow->GetRenderer().SetBackgroundColor(0.1f, 0.8f, 0.4f, 1.0f);
-			}
-			if (input.IsKeyboardKeyJustPressed(KeyboardKey::D))
-			{
-				gameWindow->GetRenderer().SetBackgroundColor(0.4f, 0.5f, 1.0f, 1.0f);
-			}
-			if (input.IsMouseButtonJustPressed(MouseButton::LEFT))
-			{
-				gameWindow->GetRenderer().SetBackgroundColor(0.5f, 0.7f, 0.9f, 1.0f);
-			}
-			if (input.IsKeyboardKeyJustReleased(KeyboardKey::SPACE))
-			{
-				gameWindow->GetRenderer().SetBackgroundColor(0.5f, 0.3f, 0.1f, 1.0f);
-			}
-			if (input.IsMouseButtonPressed(MouseButton::BUTTON_3))
-			{
-				gameWindow->GetRenderer().SetBackgroundColor(0.5f, 0.5f, 0.6f, 1.0f);
-			}
+			mesh->transform.rotation.y = value;
+			mesh->transform.position.x = sinf(value);
+			mesh->transform.position.y = -cosf(value);
+			mesh->transform.position.z = -4.5f - (cosf(value * 0.25f) * 2.0f);
+			value += 0.01f;
 			gameWindow->Process();
 		}
 		gameWindow->Destroy();
