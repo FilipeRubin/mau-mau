@@ -13,12 +13,16 @@ layout(location=0) in vec3 v_in_pos;
 layout(location=1) in vec2 v_in_tex;
 layout(location=2) in vec3 v_in_nor;
 
+out vec3 v_out_color;
+
 uniform mat4 u_projection;
 uniform mat4 u_model;
 
 void main()
 {
-    gl_Position = u_projection * u_model * vec4(v_in_pos, 1.0);
+    vec4 vertexPos = u_projection * u_model * vec4(v_in_pos, 1.0);
+    gl_Position = vertexPos;
+    v_out_color = vec3(v_in_nor.r, v_in_nor.g, v_in_nor.b);
 }
 )";
     
@@ -27,9 +31,11 @@ void main()
 
 out vec4 f_fragColor;
 
+in vec3 v_out_color;
+
 void main()
 {
-    f_fragColor = vec4(1.0);
+    f_fragColor = vec4(v_out_color, 1.0);
 }
 )";
 
