@@ -13,4 +13,6 @@ public:
 private:
 	std::vector<std::shared_ptr<OpenGLMesh>> m_meshes;
 	OpenGLProgram m_program;
+	void CreateProgram();
+	Matrix4x4 GenerateModelMatrix(const Transform3D& transform) const;
 };

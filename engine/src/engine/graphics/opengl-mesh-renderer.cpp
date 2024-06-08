@@ -4,6 +4,31 @@
 
 OpenGLMeshRenderer::OpenGLMeshRenderer()
 {
+    CreateProgram();
+}
+
+std::shared_ptr<MeshBase> OpenGLMeshRenderer::CreateMesh()
+{
+    return m_meshes.emplace_back(std::make_shared<OpenGLMesh>());
+}
+
+void OpenGLMeshRenderer::DrawAllMeshes() const
+{
+    m_program.Use();
+
+    const Matrix4x4 perspective = Matrix4x4::Perspective(std::numbers::pi / 2.0f, 3.0f / 4.0f, 0.1f, 50.0f);
+    m_program.UniformMatrix4x4("u_projection", perspective);
+
+    for (const std::shared_ptr<OpenGLMesh>& mesh : m_meshes)
+    {
+        const Matrix4x4 modelMatrix = GenerateModelMatrix(mesh->transform);
+        m_program.UniformMatrix4x4("u_model", modelMatrix);
+        mesh->Draw();
+    }
+}
+
+void OpenGLMeshRenderer::CreateProgram()
+{
     OpenGLShader vertexShader = OpenGLShader(OpenGLShaderType::VERTEX_SHADER);
     OpenGLShader fragmentShader = OpenGLShader(OpenGLShaderType::FRAGMENT_SHADER);
 
@@ -26,7 +51,7 @@ void main()
     v_out_color = vec3(v_in_nor.r, v_in_nor.g, v_in_nor.b);
 }
 )";
-    
+
     const char* fragSource = R"(
 #version 330 core
 
@@ -54,27 +79,10 @@ void main()
     m_program.Link();
 }
 
-std::shared_ptr<MeshBase> OpenGLMeshRenderer::CreateMesh()
+Matrix4x4 OpenGLMeshRenderer::GenerateModelMatrix(const Transform3D& transform) const
 {
-    return m_meshes.emplace_back(std::make_shared<OpenGLMesh>());
-}
-
-void OpenGLMeshRenderer::DrawAllMeshes() const
-{
-    m_program.Use();
-
-    const Matrix4x4 perspective = Matrix4x4::Perspective(std::numbers::pi / 2.0f, 3.0f / 4.0f, 0.1f, 50.0f);
-    m_program.UniformMatrix4x4("u_projection", perspective);
-
-    for (const std::shared_ptr<OpenGLMesh>& mesh : m_meshes)
-    {
-        const Matrix4x4 scaleMatrix = Matrix4x4::Scale(mesh->transform.scale);
-        const Matrix4x4 rotationMatrix = Matrix4x4::Rotation(mesh->transform.rotation);
-        const Matrix4x4 translationMatrix = Matrix4x4::Translation(mesh->transform.position);
-
-        const Matrix4x4 modelMatrix = translationMatrix * scaleMatrix * rotationMatrix;
-        m_program.UniformMatrix4x4("u_model", modelMatrix);
-
-        mesh->Draw();
-    }
+    const Matrix4x4 scaleMatrix = Matrix4x4::Scale(transform.scale);
+    const Matrix4x4 rotationMatrix = Matrix4x4::Rotation(transform.rotation);
+    const Matrix4x4 translationMatrix = Matrix4x4::Translation(transform.position);
+    return translationMatrix * scaleMatrix * rotationMatrix;
 }
