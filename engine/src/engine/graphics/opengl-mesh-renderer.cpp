@@ -16,7 +16,7 @@ void OpenGLMeshRenderer::DrawAllMeshes() const
 {
     m_program.Use();
 
-    const Matrix4x4 perspective = Matrix4x4::Perspective(std::numbers::pi / 2.0f, 3.0f / 4.0f, 0.1f, 50.0f);
+    const Matrix4x4 perspective = Matrix4x4::Perspective(static_cast<float>(std::numbers::pi) / 2.0f, 3.0f / 4.0f, 0.1f, 50.0f);
     m_program.UniformMatrix4x4("u_projection", perspective);
 
     for (const std::shared_ptr<OpenGLMesh>& mesh : m_meshes)
