@@ -1,5 +1,5 @@
 #pragma once
-#include "i-game-window.h"
+#include "engine/graphics/i-game-window.h"
 
 class OpenGLGameWindow : public IGameWindow
 {

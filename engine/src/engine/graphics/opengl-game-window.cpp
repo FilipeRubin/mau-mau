@@ -1,4 +1,4 @@
-#include "engine/graphics/opengl-game-window.h"
+#include "opengl-game-window.h"
 #include "../input/opengl-input.h"
 #include "opengl-renderer.h"
 #include <GLFW/glfw3.h>
