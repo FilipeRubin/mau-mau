@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
+#include "engine/graphics/i-game-window.h"
 
-class IGameWindowCore
+class IGameWindowCore : public IGameWindow
 {
 public:
 	virtual ~IGameWindowCore() = default;

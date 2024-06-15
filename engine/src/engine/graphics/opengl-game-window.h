@@ -1,8 +1,7 @@
 #pragma once
-#include "engine/graphics/i-game-window.h"
 #include "i-game-window-core.h"
 
-class OpenGLGameWindow : public IGameWindow, public IGameWindowCore
+class OpenGLGameWindow : public IGameWindowCore
 {
 public:
 	OpenGLGameWindow();
