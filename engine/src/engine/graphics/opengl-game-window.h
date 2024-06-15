@@ -1,7 +1,7 @@
 #pragma once
-#include "i-game-window-core.h"
+#include "i-game-window-full.h"
 
-class OpenGLGameWindow : public IGameWindowCore
+class OpenGLGameWindow : public IGameWindowFull
 {
 public:
 	OpenGLGameWindow();
