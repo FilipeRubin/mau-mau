@@ -29,7 +29,7 @@ bool Engine::Load(const EngineConfiguration& config)
 	return true;
 }
 
-void Engine::Start(const std::unique_ptr<Scene>& mainScene)
+void Engine::Start(const std::unique_ptr<SceneData>& mainScene)
 {
 	IGameWindowCore& window = *m_window;
 
