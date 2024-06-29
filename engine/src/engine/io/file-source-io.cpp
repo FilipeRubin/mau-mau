@@ -16,6 +16,11 @@ FileSourceIO::~FileSourceIO()
     m_fileStream.close();
 }
 
+void FileSourceIO::Close()
+{
+    m_fileStream.close();
+}
+
 void FileSourceIO::Open(const std::string& fileName)
 {
     if (m_fileStream.is_open())

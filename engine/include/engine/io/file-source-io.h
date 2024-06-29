@@ -8,6 +8,7 @@ public:
 	FileSourceIO();
 	FileSourceIO(const std::string& fileName);
 	~FileSourceIO();
+	void Close();
 	void Open(const std::string& fileName);
 	bool TryRead(std::string& result) override;
 	bool TryWrite(const std::string& content) override;
