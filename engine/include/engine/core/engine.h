@@ -1,6 +1,5 @@
 #pragma once
 #include "engine-configuration.h"
-#include <memory>
 
 class Engine
 {
@@ -11,6 +10,6 @@ public:
 	void Start();
 private:
 	class IGameWindowFull* m_window;
+	void CreateWindow(const RenderingAPI& renderingAPI);
 	void DestroyWindow();
-	class IGameWindowFull* CreateWindow(const RenderingAPI& renderingAPI);
 };

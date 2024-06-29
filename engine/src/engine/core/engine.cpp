@@ -13,7 +13,7 @@ Engine::~Engine()
 
 bool Engine::Load(const EngineConfiguration& config)
 {
-	m_window = CreateWindow(config.renderingAPI);
+	CreateWindow(config.renderingAPI);
 
 	if (m_window == nullptr)
 	{
@@ -43,21 +43,17 @@ void Engine::Start()
 	DestroyWindow();
 }
 
+void Engine::CreateWindow(const RenderingAPI& renderingAPI)
+{
+	if (m_window != nullptr)
+	{
+		DestroyWindow();
+	}
+	m_window = new OpenGLGameWindow();
+}
+
 void Engine::DestroyWindow()
 {
 	delete m_window;
 	m_window = nullptr;
-}
-
-IGameWindowFull* Engine::CreateWindow(const RenderingAPI& renderingAPI)
-{
-	switch (renderingAPI)
-	{
-	case RenderingAPI::OPEN_GL:
-		return new OpenGLGameWindow();
-		break;
-	default:
-		return nullptr;
-		break;
-	}
 }
