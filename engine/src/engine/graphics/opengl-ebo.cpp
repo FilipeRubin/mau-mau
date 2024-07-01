@@ -28,5 +28,5 @@ void OpenGLEBO::SetData(const unsigned int* data, size_t length)
 	m_length = length;
 	const size_t size = length * sizeof(unsigned int);
 	Bind();
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (GLsizeiptr)size, data, GL_STATIC_DRAW);
 }

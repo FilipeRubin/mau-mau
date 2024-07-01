@@ -21,5 +21,5 @@ void OpenGLVBO::SetData(const Vertex* data, size_t length) const
 {
 	Bind();
 	const size_t size = length * sizeof(Vertex);
-	glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, (GLsizeiptr)size, data, GL_STATIC_DRAW);
 }
