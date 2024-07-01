@@ -29,12 +29,15 @@ bool Engine::Load(const EngineConfiguration& config)
 	return true;
 }
 
-void Engine::Start()
+void Engine::Start(const std::unique_ptr<Game>&& game)
 {
 	IGameWindowCore& window = *m_window;
 
+	game->m_gameWindow = m_window;
+	game->Start();
 	while (window.ShouldContinueRunning())
 	{
+		game->Update(0.0f);
 		window.Process();
 	}
 
