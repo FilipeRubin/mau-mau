@@ -8,10 +8,10 @@ class Engine
 public:
 	Engine();
 	~Engine();
-	bool Load(const EngineConfiguration& config);
+	bool TryLoad(const EngineConfiguration& config);
 	void Start(const std::unique_ptr<Game>&& game);
 private:
 	class IGameWindowFull* m_window;
-	void CreateWindow(const RenderingAPI& renderingAPI);
+	bool TryCreateWindow(const RenderingAPI& renderingAPI);
 	void DestroyWindow();
 };
