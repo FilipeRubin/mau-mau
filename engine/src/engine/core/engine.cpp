@@ -18,18 +18,16 @@ bool Engine::TryLoad(const EngineConfiguration& config)
 
 void Engine::Start(const std::unique_ptr<Game>&& game)
 {
-	IGameWindowCore& window = *m_window;
-
-	game->m_gameWindow = m_window;
+	game->SetGameWindow(m_window);
 	game->Start();
-	while (window.ShouldContinueRunning())
+
+	while (m_window->ShouldContinueRunning())
 	{
 		game->Update(0.0f);
-		window.Process();
+		m_window->Process();
 	}
 
-	window.Destroy();
-
+	m_window->Destroy();
 	DestroyWindow();
 }
 
