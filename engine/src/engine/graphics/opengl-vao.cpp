@@ -24,6 +24,6 @@ void OpenGLVAO::SetVertexAttribute(const OpenGLVertexAttribute& attribute) const
 		attribute.elementCount,
 		GL_FLOAT, GL_FALSE,
 		attribute.stride,
-		static_cast<const void*>(&attribute.offset));
+		reinterpret_cast<const void*>(attribute.offset));
 	glEnableVertexAttribArray(attribute.index);
 }
