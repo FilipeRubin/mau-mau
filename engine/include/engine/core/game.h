@@ -12,4 +12,5 @@ private:
 	const IGameWindow* m_gameWindow;
 	virtual void Start() = 0;
 	virtual void Update(const float& deltaTime) = 0;
+	void SetGameWindow(const IGameWindow* gameWindow);
 };
