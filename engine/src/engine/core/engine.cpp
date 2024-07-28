@@ -29,7 +29,9 @@ bool Engine::TryLoad(const EngineConfiguration& config)
 
 void Engine::Start(const std::unique_ptr<Game>&& game)
 {
-	game->SetGameWindow(m_window);
+	game->m_input = m_window->GetInput();
+	game->m_renderer = m_window->GetRenderer();
+	game->m_window = m_window;
 	game->Start();
 
 	while (m_window->ShouldContinueRunning())

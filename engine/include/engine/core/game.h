@@ -6,11 +6,14 @@ class Game
 public:
 	virtual ~Game() = default;
 protected:
-	virtual const IWindow& GetGameWindow() const final;
-private:
-	friend class Engine;
-	const IWindow* m_gameWindow;
 	virtual void Start() = 0;
 	virtual void Update(const float& deltaTime) = 0;
-	void SetGameWindow(const IWindow* gameWindow);
+	virtual IInput& GetInput() const final;
+	virtual IRenderer& GetRenderer() const final;
+	virtual IWindow& GetWindow() const final;
+private:
+	friend class Engine;
+	IInput* m_input;
+	IRenderer* m_renderer;
+	IWindow* m_window;
 };

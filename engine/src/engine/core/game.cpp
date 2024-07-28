@@ -1,11 +1,16 @@
 #include "engine/core/game.h"
 
-const IWindow& Game::GetGameWindow() const
+IInput& Game::GetInput() const
 {
-	return *m_gameWindow;
+    return *m_input;
 }
 
-void Game::SetGameWindow(const IWindow* gameWindow)
+IRenderer& Game::GetRenderer() const
 {
-	m_gameWindow = gameWindow;
+    return *m_renderer;
+}
+
+IWindow& Game::GetWindow() const
+{
+    return *m_window;
 }
