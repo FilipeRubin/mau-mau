@@ -1,11 +1,11 @@
 #pragma once
-#include "i-game-window-full.h"
+#include "i-window-full.h"
 
-class OpenGLGameWindow : public IGameWindowFull
+class OpenGLWindow : public IWindowFull
 {
 public:
-	OpenGLGameWindow();
-	~OpenGLGameWindow();
+	OpenGLWindow();
+	~OpenGLWindow();
 	void Destroy() override;
 	IInput& GetInput() const override;
 	IRenderer& GetRenderer() const override;

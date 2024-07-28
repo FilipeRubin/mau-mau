@@ -1,21 +1,21 @@
-#include "opengl-game-window.h"
+#include "opengl-window.h"
 #include "../input/opengl-input.h"
 #include "opengl-renderer.h"
 #include <GLFW/glfw3.h>
 
-OpenGLGameWindow::OpenGLGameWindow() :
+OpenGLWindow::OpenGLWindow() :
 	m_input(nullptr),
 	m_renderer(nullptr),
 	m_window(nullptr)
 {
 }
 
-OpenGLGameWindow::~OpenGLGameWindow()
+OpenGLWindow::~OpenGLWindow()
 {
 	Destroy(); // Just to make sure
 }
 
-void OpenGLGameWindow::Destroy()
+void OpenGLWindow::Destroy()
 {
 	delete m_input;
 	m_input = nullptr;
@@ -26,17 +26,17 @@ void OpenGLGameWindow::Destroy()
 	glfwTerminate();
 }
 
-IInput& OpenGLGameWindow::GetInput() const
+IInput& OpenGLWindow::GetInput() const
 {
 	return *m_input;
 }
 
-IRenderer& OpenGLGameWindow::GetRenderer() const
+IRenderer& OpenGLWindow::GetRenderer() const
 {
 	return *m_renderer;
 }
 
-void OpenGLGameWindow::Process()
+void OpenGLWindow::Process()
 {
 	dynamic_cast<IInputCore*>(m_input)->Process();
 	dynamic_cast<IRendererCore*>(m_renderer)->ClearScreen();
@@ -45,12 +45,12 @@ void OpenGLGameWindow::Process()
 	glfwPollEvents();
 }
 
-bool OpenGLGameWindow::ShouldContinueRunning() const
+bool OpenGLWindow::ShouldContinueRunning() const
 {
 	return !glfwWindowShouldClose(m_window);
 }
 
-bool OpenGLGameWindow::TryCreateWindow(int width, int height, const std::string& title)
+bool OpenGLWindow::TryCreateWindow(int width, int height, const std::string& title)
 {
 	if (glfwInit() != GLFW_TRUE)
 		return false;

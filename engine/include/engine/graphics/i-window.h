@@ -3,10 +3,10 @@
 #include "i-renderer.h"
 #include <string>
 
-class IGameWindow
+class IWindow
 {
 public:
-	virtual ~IGameWindow() = default;
+	virtual ~IWindow() = default;
 	virtual IInput& GetInput() const = 0;
 	virtual IRenderer& GetRenderer() const = 0;
 };

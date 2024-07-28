@@ -1,5 +1,5 @@
 #include "engine/core/engine.h"
-#include "../graphics/opengl-game-window.h"
+#include "../graphics/opengl-window.h"
 
 Engine::Engine() :
 	m_window(nullptr)
@@ -37,7 +37,7 @@ bool Engine::TryCreateWindow(const RenderingAPI& renderingAPI)
 	{
 		DestroyWindow();
 	}
-	m_window = new OpenGLGameWindow();
+	m_window = new OpenGLWindow();
 
 	if (not m_window)
 	{

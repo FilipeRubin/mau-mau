@@ -1,10 +1,10 @@
 #pragma once
 #include <string>
 
-class IGameWindowCore
+class IWindowCore
 {
 public:
-	virtual ~IGameWindowCore() = default;
+	virtual ~IWindowCore() = default;
 	virtual void Destroy() = 0;
 	virtual void Process() = 0;
 	virtual bool ShouldContinueRunning() const = 0;
