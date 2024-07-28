@@ -16,5 +16,7 @@ private:
 	IInput* m_input;
 	IRenderer* m_renderer;
 	struct GLFWwindow* m_window;
+	bool TryCreateInput();
+	bool TryCreateRenderer();
 	bool TryInitialize(int width, int height, const char* title);
 };

@@ -57,12 +57,13 @@ bool OpenGLWindow::TryCreateWindow(int width, int height, const std::string& tit
 		return false;
 	}
 
-	m_input = new OpenGLInput(m_window);
-	m_renderer = new OpenGLRenderer();
+	if (not TryCreateInput())
+	{
+		Destroy();
+		return false;
+	}
 
-	const bool rendererInitializedSuccessfully = dynamic_cast<IRendererCore*>(m_renderer)->TryInitialize();
-
-	if (not rendererInitializedSuccessfully)
+	if (not TryCreateRenderer())
 	{
 		Destroy();
 		return false;
@@ -82,5 +83,21 @@ bool OpenGLWindow::TryInitialize(int width, int height, const char* title)
 		return false;
 	}
 	glfwMakeContextCurrent(m_window);
+	return true;
+}
+
+bool OpenGLWindow::TryCreateInput()
+{
+	return m_input = new OpenGLInput(m_window);
+}
+
+bool OpenGLWindow::TryCreateRenderer()
+{
+	m_renderer = new OpenGLRenderer();
+	if (not dynamic_cast<IRendererCore*>(m_renderer)->TryInitialize())
+	{
+		delete m_renderer;
+		return false;
+	}
 	return true;
 }
