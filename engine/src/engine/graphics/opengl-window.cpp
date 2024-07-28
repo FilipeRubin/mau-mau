@@ -52,15 +52,10 @@ bool OpenGLWindow::ShouldContinueRunning() const
 
 bool OpenGLWindow::TryCreateWindow(int width, int height, const std::string& title)
 {
-	if (glfwInit() != GLFW_TRUE)
-		return false;
-	m_window = glfwCreateWindow(width, height, title.c_str(), nullptr, nullptr);
-	if (m_window == nullptr)
+	if (not TryInitialize(width, height, title.c_str()))
 	{
-		glfwTerminate();
 		return false;
 	}
-	glfwMakeContextCurrent(m_window);
 
 	m_input = new OpenGLInput(m_window);
 	m_renderer = new OpenGLRenderer();
@@ -73,5 +68,19 @@ bool OpenGLWindow::TryCreateWindow(int width, int height, const std::string& tit
 		return false;
 	}
 
+	return true;
+}
+
+bool OpenGLWindow::TryInitialize(int width, int height, const char* title)
+{
+	if (glfwInit() != GLFW_TRUE)
+		return false;
+	m_window = glfwCreateWindow(width, height, title, nullptr, nullptr);
+	if (m_window == nullptr)
+	{
+		glfwTerminate();
+		return false;
+	}
+	glfwMakeContextCurrent(m_window);
 	return true;
 }
