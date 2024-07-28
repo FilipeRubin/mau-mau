@@ -8,12 +8,23 @@ Engine::Engine() :
 
 Engine::~Engine()
 {
-	DestroyWindow();
+	Unload();
 }
 
 bool Engine::TryLoad(const EngineConfiguration& config)
 {
-	return TryCreateWindow(config.renderingAPI);
+	if (not TryLoadAPI(config.renderingAPI))
+	{
+		return false;
+	}
+
+	if (not m_window->TryCreateWindow(800, 600, "Mau-Mau Engine Game"))
+	{
+		Unload();
+		return false;
+	}
+
+	return true;
 }
 
 void Engine::Start(const std::unique_ptr<Game>&& game)
@@ -28,32 +39,26 @@ void Engine::Start(const std::unique_ptr<Game>&& game)
 	}
 
 	m_window->Destroy();
-	DestroyWindow();
+	Unload();
 }
 
-bool Engine::TryCreateWindow(const RenderingAPI& renderingAPI)
+bool Engine::TryLoadAPI(const RenderingAPI& renderingAPI)
 {
-	if (m_window != nullptr)
-	{
-		DestroyWindow();
-	}
-	m_window = new OpenGLWindow();
+	if (m_window != nullptr) Unload();
 
-	if (not m_window)
+	switch (renderingAPI)
 	{
-		return false;
-	}
-
-	if (not m_window->TryCreateWindow(800, 600, "Mau-Mau Engine Game"))
-	{
-		DestroyWindow();
-		return false;
+	case RenderingAPI::OPEN_GL:
+		m_window = new OpenGLWindow();
+		break;
+	default:
+		m_window = nullptr;
 	}
 
-	return true;
+	return m_window;
 }
 
-void Engine::DestroyWindow()
+void Engine::Unload()
 {
 	delete m_window;
 	m_window = nullptr;

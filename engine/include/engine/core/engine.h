@@ -12,6 +12,6 @@ public:
 	void Start(const std::unique_ptr<Game>&& game);
 private:
 	class IWindowFull* m_window;
-	bool TryCreateWindow(const RenderingAPI& renderingAPI);
-	void DestroyWindow();
+	bool TryLoadAPI(const RenderingAPI& renderingAPI);
+	void Unload();
 };
