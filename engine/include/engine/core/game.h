@@ -6,7 +6,7 @@ class Game
 public:
 	virtual ~Game() = default;
 protected:
-	const IGameWindow& GetGameWindow() const;
+	virtual const IGameWindow& GetGameWindow() const final;
 private:
 	friend class Engine;
 	const IGameWindow* m_gameWindow;
