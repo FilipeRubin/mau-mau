@@ -7,8 +7,8 @@ public:
 	OpenGLWindow();
 	~OpenGLWindow();
 	void Destroy() override;
-	IInput& GetInput() const override;
-	IRenderer& GetRenderer() const override;
+	IInput* GetInput() const override;
+	IRenderer* GetRenderer() const override;
 	void Process() override;
 	bool ShouldContinueRunning() const override;
 	bool TryCreateWindow(int width, int height, const std::string& title) override;
